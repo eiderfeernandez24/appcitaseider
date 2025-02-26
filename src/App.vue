@@ -1,5 +1,5 @@
 <template>
-  <header v-if="!isUserPage"> <!-- Solo muestra el header si NO estamos en la página de usuario -->
+  <header v-if="!isSpecialPage"> <!-- Solo muestra el header si NO estamos en una de las páginas específicas -->
     <div class="wrapper">
       <!-- Logo y título -->
       <div class="logo-container text-center">
@@ -31,15 +31,16 @@
 import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router'; // Para acceder a la ruta actual
 
-// Estado para saber si estamos en la página de usuario
-const isUserPage = ref(false);
+// Estado para saber si estamos en una de las páginas específicas
+const isSpecialPage = ref(false);
 
 // Obtenemos la ruta actual
 const route = useRoute();
 
-// Usamos un watcher para detectar cambios en la ruta y ocultar el header si estamos en la página de usuario
+// Usamos un watcher para detectar cambios en la ruta y ocultar el header si estamos en una de las páginas específicas
 watchEffect(() => {
-  isUserPage.value = route.path === '/user'; // Cambia '/user' por la ruta que corresponde a tu página de usuario
+  const specialPages = ['/user', '/ver-citas', '/reservar-cita'];
+  isSpecialPage.value = specialPages.includes(route.path);
 });
 </script>
 

@@ -33,28 +33,43 @@ export default {
   },
   methods: {
     async iniciarSesion() {
-      const datosUsuario = {
-        username: this.username,
-        password: this.password
-      };
+  const datosUsuario = {
+    username: this.username,
+    password: this.password
+  };
 
-      try {
-        const respuesta = await axios.post('http://127.0.0.1:5000/login', datosUsuario);
-        if (respuesta.status === 200 || respuesta.status === 201) {
-          this.mensaje = 'Inicio de sesión exitoso';
-          this.$emit('authenticated', true);
-          this.$router.push('/user'); // Redirige a la página de usuario
-        } else {
-          this.mensaje = `Error: ${respuesta.status} - ${respuesta.statusText}`;
-        }
-      } catch (error) {
-        if (error.response) {
-          this.mensaje = `Usuario no registrado`;
-        } else {
-          this.mensaje = 'No se pudo conectar con el servidor, por favor intente nuevamente';
-        }
-      }
+  try {
+    const respuesta = await axios.post('http://127.0.0.1:5000/login', datosUsuario);
+
+    // Imprimir la respuesta completa en la consola
+    console.log(respuesta);
+
+    if (respuesta.status === 200 || respuesta.status === 201) {
+      const token = respuesta.data.access_token;  // Acceder a 'access_token' en lugar de 'token'
+
+if (token) {
+  // Guardar el token en localStorage
+  localStorage.setItem('token', token);
+
+  this.mensaje = 'Inicio de sesión exitoso';
+  this.$emit('authenticated', true);
+
+  // Redirigir al usuario
+  this.$router.push('/user');
+    } else {
+      this.mensaje = 'No se recibió el token';
     }
+    } else {
+      this.mensaje = `Error: ${respuesta.status} - ${respuesta.statusText}`;
+    }
+  } catch (error) {
+    if (error.response) {
+      this.mensaje = 'Usuario no registrado';
+    } else {
+      this.mensaje = 'No se pudo conectar con el servidor, por favor intente nuevamente';
+    }
+  }
+}
   }
 };
 </script>

@@ -61,7 +61,7 @@
         this.$router.push('/ver-citas');
       },
       cancelarCitas() {
-        this.$router.push('/cancelar-cita');
+        this.$router.push('/ver-citas');
       },
     },
   };
@@ -73,10 +73,9 @@
     width: 100%;
     height: 100%;
     max-width: 100%;
-    background: linear-gradient(135deg, #f3b9c9, #f7c6d6);ackground: linear-gradient(135deg, #f4a6c6, #ff77b5);
+    background: linear-gradient(135deg, #f3b9c9, #f7c6d6);
     color: white;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     margin: 0;
 
   }

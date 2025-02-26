@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Registro from '../views/Registro.vue'; // Asegúrate de que esta ruta sea correcta
 import Login from '../views/Login.vue';
 import UserPage from '@/views/UserPage.vue';
+import ReservarCita from '@/views/ReservarCita.vue';
+import VerCitas from '@/views/VerCitas.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +22,16 @@ const router = createRouter({
       path: '/user',
       name: 'UserPage',
       component: UserPage,
+    },
+    {
+      path: '/reservar-cita',
+      name: 'reservarCita',
+      component: ReservarCita
+    },
+    {
+      path: '/ver-citas',
+      name: 'verCitas',
+      component: VerCitas
     },
     // Puedes agregar más rutas si es necesario
   ],
