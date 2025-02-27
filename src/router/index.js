@@ -4,6 +4,7 @@ import Login from '../views/Login.vue';
 import UserPage from '@/views/UserPage.vue';
 import ReservarCita from '@/views/ReservarCita.vue';
 import VerCitas from '@/views/VerCitas.vue';
+import ModificarInformacion from '@/views/ModificarInformacion.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/ver-citas',
       name: 'verCitas',
       component: VerCitas
+    },
+    {
+      path: '/modificar-informacion',
+      name: 'modificarInformacion',
+      component: ModificarInformacion
     },
     // Puedes agregar más rutas si es necesario
   ],

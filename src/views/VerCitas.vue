@@ -121,7 +121,8 @@
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    background: linear-gradient(135deg, #f3b9c9, #f7c6d6);
+    background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+    color: white;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);

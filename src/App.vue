@@ -39,7 +39,7 @@ const route = useRoute();
 
 // Usamos un watcher para detectar cambios en la ruta y ocultar el header si estamos en una de las páginas específicas
 watchEffect(() => {
-  const specialPages = ['/user', '/ver-citas', '/reservar-cita'];
+  const specialPages = ['/user', '/ver-citas', '/reservar-cita', '/modificar-informacion'];
   isSpecialPage.value = specialPages.includes(route.path);
 });
 </script>
