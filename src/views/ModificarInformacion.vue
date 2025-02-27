@@ -98,26 +98,6 @@
         // Retornamos la fecha en el formato esperado "YYYY-MM-DD"
         return `${anio}-${mes}-${dia}`;
       },
-  
-      // Función para actualizar el perfil del usuario
-      async actualizarPerfil() {
-        if (!this.usuario.name || !this.usuario.lastname || !this.usuario.email || !this.usuario.phone || !this.usuario.date) {
-          this.mensaje = "Por favor, complete todos los campos.";
-          return;
-        }
-  
-        try {
-          const response = await axios.put('http://127.0.0.1:5000/profile/update', this.usuario, {
-            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-          });
-  
-          this.mensaje = "Perfil actualizado correctamente.";
-          this.$router.push("/"); // Redirigir al usuario después de la actualización
-        } catch (error) {
-          console.error("Error al actualizar perfil:", error);
-          this.mensaje = "Hubo un error al actualizar los datos.";
-        }
-      }
     }
   };
   </script>  
