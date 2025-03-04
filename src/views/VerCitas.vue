@@ -1,5 +1,5 @@
 <template>
-    <div class="container text-center py-5">
+    <div class="container text-center py-2">
       <h2>Mis Citas</h2>
       <p class="lead">Aquí puedes ver todas tus citas reservadas.</p>
   
@@ -117,23 +117,27 @@
   </script>
   
   <style scoped>
-  .container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-    color: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  .list-group-item {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
+.container {
+  background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  height: 100vh; 
+}
+
+.list-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacio entre las citas */
+}
+
+.list-group-item {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
   
   h5 {
     font-size: 20px;
