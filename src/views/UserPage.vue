@@ -54,19 +54,19 @@
           <h3>Estadísticas de Citas</h3>
           <div class="row justify-content-center">
             <div class="col-12 col-md-4">
-              <div class="statistic-card">
+              <div class="statistic-card total-citas">
                 <h4>Total de Citas</h4>
                 <p>{{ citas.length }}</p>
               </div>
             </div>
             <div class="col-12 col-md-4">
-              <div class="statistic-card">
+              <div class="statistic-card proxima-cita">
                 <h4>Próxima Cita</h4>
                 <p>{{ proximaCita }}</p>
               </div>
             </div>
             <div class="col-12 col-md-4">
-              <div class="statistic-card">
+              <div class="statistic-card centros-visitados">
                 <h4>Centros Visitados</h4>
                 <p>{{ centrosVisitados.size }}</p>
               </div>
@@ -81,9 +81,19 @@
             <p><strong>Centro:</strong> {{ selectedEvent.center }}</p>
             <p><strong>Fecha:</strong> {{ formatDate(selectedEvent.date) }}</p>
             <p><strong>Hora:</strong> {{ formatTime(selectedEvent.date) }}</p>
-            <div class="col-12 col-md-4">
-            </div>
           </div>
+        </div>
+      </div>
+
+      <div class="faq">
+        <h3>Preguntas Frecuentes</h3>
+        <div class="faq-item">
+          <h4>¿Cómo puedo reservar una cita?</h4>
+          <p>Ve a la sección "Reservar cita" y sigue los pasos.</p>
+        </div>
+        <div class="faq-item">
+          <h4>¿Es Matchify gratis?</h4>
+          <p>Sí, la aplicación es completamente gratuita.</p>
         </div>
       </div>
     </div>
@@ -101,28 +111,28 @@ export default {
   components: {
     FullCalendar,
   },
-  
+
   data() {
-  return {
-    citas: [],
-    calendarOptions: {
-      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-      initialView: 'dayGridMonth',
-      events: [],
-      height: 400, // Reducimos la altura del calendario
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek',
+    return {
+      citas: [],
+      calendarOptions: {
+        plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+        initialView: 'dayGridMonth',
+        events: [],
+        height: 400,
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek',
+        },
+        eventColor: '#87CEEB',
+        eventBorderColor: '#4682B4',
+        eventClick: this.handleEventClick,
       },
-      eventColor: '#87CEEB',
-      eventBorderColor: '#4682B4',
-      eventClick: this.handleEventClick,
-    },
-    selectedEvent: null,
-  };
-},
-computed: {
+      selectedEvent: null,
+    };
+  },
+  computed: {
     proximaCita() {
       if (this.citas.length === 0) return 'Ninguna';
       const fechas = this.citas.map(cita => new Date(cita.date));
@@ -208,9 +218,9 @@ computed: {
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap');
 
 .main-content {
-  max-width: 1200px; /* Ajusta el ancho máximo según tus necesidades */
-  margin: 0 auto; /* Centra el contenido en la pantalla */
-  padding: 0 20px; /* Añade un poco de relleno a los lados */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
   height: 100vh;
 }
 
@@ -253,14 +263,13 @@ h2 {
   margin: 20px auto;
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  overflow: auto; /* Cambia hidden a auto */
+  overflow: auto;
   background: white;
   border: 1px solid #ddd;
 }
 
-
 .fc-col-header-cell {
-  background-color: #f8f8f8; /* Color de fondo más claro */
+  background-color: #f8f8f8;
   padding: 10px;
   text-align: center;
   border-bottom: 1px solid #eee;
@@ -286,7 +295,7 @@ h2 {
 }
 
 .fc-daygrid-day {
-  border: 1px solid #eee; /* Agregamos bordes a las celdas */
+  border: 1px solid #eee;
 }
 
 .statistics-container {
@@ -325,15 +334,15 @@ h2 {
 }
 
 .total-citas .statistic-icon {
-  color: #4CAF50; /* Verde */
+  color: #4CAF50;
 }
 
 .proxima-cita .statistic-icon {
-  color: #2196F3; /* Azul */
+  color: #2196F3;
 }
 
 .centros-visitados .statistic-icon {
-  color: #FF9800; /* Naranja */
+  color: #FF9800;
 }
 
 .statistic-card h4 {
@@ -392,5 +401,26 @@ h2 {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.faq {
+  background: #f8f8f8;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.faq h3 {
+  color: black;
+  margin-bottom: 20px;
+}
+
+.faq-item {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 </style>
