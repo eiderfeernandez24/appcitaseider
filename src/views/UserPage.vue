@@ -82,6 +82,7 @@
             <p><strong>Centro:</strong> {{ selectedEvent.center }}</p>
             <p><strong>Fecha:</strong> {{ formatDate(selectedEvent.date) }}</p>
             <p><strong>Hora:</strong> {{ formatTime(selectedEvent.date) }}</p>
+            <button class="btn btn-danger" @click="cancelarCitaSeleccionada">Cancelar Cita</button>
           </div>
         </div>
       </div>
@@ -211,6 +212,37 @@ export default {
       const date = new Date(dateString);
       return date.toLocaleDateString();
     },
+    async cancelarCitaSeleccionada() {
+  if (!this.selectedEvent) return;
+
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No se encontró el token en localStorage');
+      alert('No estás autenticado. Por favor, inicia sesión.');
+      return;
+    }
+
+    const datos = {
+      center: this.selectedEvent.center,
+      date: this.selectedEvent.date,
+    };
+
+    await axios.post('http://127.0.0.1:5000/date/delete', datos, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    alert('Cita cancelada con éxito');
+    this.selectedEvent = null;
+    this.obtenerCitas(); // Actualizar el calendario después de cancelar
+  } catch (error) {
+    console.error('Error al cancelar la cita:', error.response ? error.response.data : error.message);
+    alert('No se pudo cancelar la cita');
+  }
+},
   },
 };
 </script>
