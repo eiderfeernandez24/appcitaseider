@@ -8,7 +8,7 @@
           alt="Logo de la app de citas" 
           class="logo img-fluid" 
         />
-        <h1 class="display-4">Matchify</h1>
+        <h1 class="display-4">MediConnect</h1>
       </div>
 
       <!-- Botones de Login y Registro -->

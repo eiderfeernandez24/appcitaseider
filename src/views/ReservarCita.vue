@@ -125,7 +125,7 @@
           this.$router.push("/user"); // Redirige a la página de usuario
 
           // Agregar la cita al calendario
-          this.agregarCitaAlCalendario(cita);
+          // this.agregarCitaAlCalendario(cita);
         } catch (error) {
           console.error("Error al reservar la cita:", error.response ? error.response.data : error.message);
           alert("No se pudo reservar la cita");

@@ -1,20 +1,21 @@
 <template>
   <div class="main-content">
     <div class="text-center py-5">
-      <h2>Bienvenido a Matchify</h2>
+      <h2>Bienvenido a MediConnect</h2>
       <p class="intro-text lead">
-        Matchify es tu nueva aplicación para encontrar citas y conectar con personas interesantes. Explora, reserva y gestiona tus encuentros de forma fácil y rápida. ¡Haz nuevos amigos o encuentra a esa persona especial hoy mismo!
+        Bienvenido a MediConnect, tu aplicación para gestionar citas médicas de manera sencilla y rápida.  
+        Encuentra especialistas, reserva consultas y mantén el control de tu salud sin complicaciones.  
+        ¡Tu bienestar, a solo un clic de distancia!
       </p>
-
       <div class="row justify-content-center my-4">
         <div class="col-12 col-md-4">
-          <img src="https://s2.ppllstatics.com/rc/www/multimedia/2024/02/21/GF4J6EB1.jpg" alt="Imagen 1" class="img-custom">
+          <img src="https://image.freepik.com/vetores-gratis/telas-do-aplicativo-de-marcacao-de-consultas-medicas_23-2148563062.jpg" alt="Imagen 1" class="img-custom">
         </div>
         <div class="col-12 col-md-4">
-          <img src="https://lamenteesmaravillosa.com/wp-content/uploads/2021/07/moviles-app-citas.jpg" alt="Imagen 2" class="img-custom">
+          <img src="https://static.vecteezy.com/system/resources/previews/002/990/983/non_2x/personal-doctor-appointment-2d-isolated-illustration-vector.jpg" alt="Imagen 2" class="img-custom">
         </div>
         <div class="col-12 col-md-4">
-          <img src="https://neubox.com/blog/wp-content/uploads/2024/01/860x436-CITAS-2.webp" alt="Imagen 3" class="img-custom">
+          <img src="https://img.freepik.com/vector-premium/concepto-redondo-cita-medica-linea-escena-personas-estilo-dibujos-animados-planos_198565-3855.jpg?w=2000" alt="Imagen 3" class="img-custom">
         </div>
       </div>
 
@@ -33,7 +34,7 @@
         </div>
         <div class="col-12 col-md-5">
           <button class="btn btn-light w-100 py-2" @click="verCitas">
-            <img src="https://cdn-icons-png.freepik.com/512/2150/2150419.png" alt="Ver citas" class="icon me-2" width="30">
+            <img src="https://cdn-icons-png.flaticon.com/512/1316/1316214.png" alt="Ver citas" class="icon me-2" width="30">
             Ver mis citas
           </button>
         </div>
@@ -92,7 +93,7 @@
           <p>Ve a la sección "Reservar cita" y sigue los pasos.</p>
         </div>
         <div class="faq-item">
-          <h4>¿Es Matchify gratis?</h4>
+          <h4>¿Es MediConnect gratis?</h4>
           <p>Sí, la aplicación es completamente gratuita.</p>
         </div>
       </div>
