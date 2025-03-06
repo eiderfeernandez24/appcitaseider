@@ -141,31 +141,5 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-  color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.form-control {
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-.btn-pink {
-  background-color: #ff69b4;
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
-}
-
-.btn-pink:hover {
-  background-color: #ff1493;
-}
+ @import url(src/assets/styles/ReservarCitaStyle.scss);
 </style>

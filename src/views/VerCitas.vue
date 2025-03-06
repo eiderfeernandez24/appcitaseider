@@ -168,39 +168,7 @@ formatTime(dateString) {
 
   </script>
   
-  <style scoped>
-.container {
-  background: #f7c6d6;
-  margin-top: 20px;
-  color: white;
-  height: 100%; 
-}
-
-.list-group {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Espacio entre las citas */
-}
-
-.list-group-item {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-  
-  h5 {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  p {
-    font-size: 16px;
-  }
-  
-  .btn-danger {
-    margin-top: 10px;
-  }
-  </style>
+<style scoped>
+  @import url(src/assets/styles/VerCitasStyle.scss);
+</style>
   
