@@ -28,19 +28,22 @@
     <div v-if="centroSeleccionado">
       <p><strong>Centro seleccionado:</strong> {{ centroSeleccionado }}</p>
     </div>
+
+    <notifications position="top right" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   data() {
     return {
       centros: [],
-      centroSeleccionado: '',
-      fecha: '',
-      hora: ''
+      centroSeleccionado: "",
+      fecha: "",
+      hora: ""
     };
   },
 
@@ -53,85 +56,85 @@ export default {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          console.error("No se encontró el token en localStorage");
-          alert("No estás autenticado. Por favor, inicia sesión.");
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No estás autenticado. Por favor, inicia sesión.",
+            confirmButtonColor: "#ff69b4"
+          });
           return;
         }
 
         const respuesta = await axios.get("http://127.0.0.1:5000/centers", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          headers: { Authorization: `Bearer ${token}` }
         });
 
         this.centros = respuesta.data;
       } catch (error) {
-        console.error("Error al obtener los centros:", error.response ? error.response.data : error.message);
-        alert("No se pudieron cargar los centros");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudieron cargar los centros.",
+          confirmButtonColor: "#ff69b4"
+        });
       }
     },
 
     async reservar() {
-      console.log("Centro seleccionado:", this.centroSeleccionado);
-      console.log("Fecha seleccionada:", this.fecha);
-      console.log("Hora seleccionada:", this.hora);
-
       if (!this.centroSeleccionado || !this.fecha || !this.hora) {
-        alert("Por favor, completa todos los campos");
+        Swal.fire({
+          icon: "warning",
+          title: "Atención",
+          text: "Por favor, completa todos los campos.",
+          confirmButtonColor: "#ff69b4"
+        });
         return;
       }
 
-      const fechaArray = this.fecha.split("-");
-      if (fechaArray.length !== 3) {
-        alert("Formato de fecha no válido.");
-        return;
-      }
-      const fechaFormateada = `${fechaArray[2]}/${fechaArray[1]}/${fechaArray[0]}`;
-
-      const horaArray = this.hora.split(":");
-      if (horaArray.length !== 2) {
-        alert("Formato de hora no válido.");
-        return;
-      }
-      const horaFormateada = `${horaArray[0]}:${horaArray[1]}:00`;
-
-      const fechaHora = `${fechaFormateada} ${horaFormateada}`;
-
-      const cita = {
-        center: this.centroSeleccionado,
-        date: fechaHora
-      };
+      const fechaHora = `${this.fecha.split("-").reverse().join("/")} ${this.hora}:00`;
+      const cita = { center: this.centroSeleccionado, date: fechaHora };
 
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          console.error("No se encontró el token en localStorage");
-          alert("No estás autenticado. Por favor, inicia sesión.");
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No estás autenticado. Por favor, inicia sesión.",
+            confirmButtonColor: "#ff69b4"
+          });
           return;
         }
 
-        const respuesta = await axios.post("http://127.0.0.1:5000/date/create", cita, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
+        await axios.post("http://127.0.0.1:5000/date/create", cita, {
+          headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
         });
 
-        alert("Cita reservada con éxito");
-        this.$router.push("/user");
-        this.agregarCitaAlCalendario(cita); // Llamar a la función para emitir el evento
+        Swal.fire({
+          icon: "success",
+          title: "¡Éxito!",
+          text: "Cita reservada con éxito.",
+          confirmButtonColor: "#ff69b4"
+        }).then(() => {
+          this.$router.push("/user");
+        });
+
+        this.agregarCitaAlCalendario(cita);
       } catch (error) {
-        console.error("Error al reservar la cita:", error.response ? error.response.data : error.message);
-        alert("No se pudo reservar la cita");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo reservar la cita.",
+          confirmButtonColor: "#ff69b4"
+        });
       }
     },
 
     agregarCitaAlCalendario(cita) {
-      if (typeof cita.date === 'string') {
+      if (typeof cita.date === "string") {
         cita.date = new Date(cita.date);
       }
-
-      this.$emit('cita-reservada', cita); // Emitir el evento con los datos de la cita
+      this.$emit("cita-reservada", cita);
     }
   }
 };

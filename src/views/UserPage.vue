@@ -108,6 +108,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
   components: {
@@ -173,8 +174,12 @@ export default {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
-          console.error('No se encontró el token en localStorage');
-          alert('No estás autenticado. Por favor, inicia sesión.');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No estás autenticado. Por favor, inicia sesión.',
+            confirmButtonColor: '#ff69b4'
+          });
           return;
         }
 
@@ -188,8 +193,12 @@ export default {
         this.citas = respuesta.data;
         this.actualizarCalendario();
       } catch (error) {
-        console.error('Error al obtener las citas:', error.response ? error.response.data : error.message);
-        alert('No se pudieron cargar las citas');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudieron cargar las citas.',
+          confirmButtonColor: '#ff69b4'
+        });
       }
     },
     actualizarCalendario() {
@@ -213,36 +222,63 @@ export default {
       return date.toLocaleDateString();
     },
     async cancelarCitaSeleccionada() {
-  if (!this.selectedEvent) return;
+      const cita = this.selectedEvent;
+      const confirmacion = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción cancelará tu cita.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ff69b4',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cancelar',
+        cancelButtonText: 'No, mantener',
+      });
 
-  try {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No se encontró el token en localStorage');
-      alert('No estás autenticado. Por favor, inicia sesión.');
-      return;
-    }
+      if (confirmacion.isConfirmed) {
+        try {
+          const token = localStorage.getItem('token');
+          if (!token) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No estás autenticado. Por favor, inicia sesión.',
+              confirmButtonColor: '#ff69b4'
+            });
+            return;
+          }
 
-    const datos = {
-      center: this.selectedEvent.center,
-      date: this.selectedEvent.date,
-    };
+          const datos = {
+            center: cita.center,
+            date: cita.date,
+          };
 
-    await axios.post('http://127.0.0.1:5000/date/delete', datos, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+          await axios.post('http://127.0.0.1:5000/date/delete', datos, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+          });
 
-    alert('Cita cancelada con éxito');
-    this.selectedEvent = null;
-    this.obtenerCitas(); // Actualizar el calendario después de cancelar
-  } catch (error) {
-    console.error('Error al cancelar la cita:', error.response ? error.response.data : error.message);
-    alert('No se pudo cancelar la cita');
-  }
-},
+          Swal.fire({
+            icon: 'success',
+            title: 'Cita cancelada',
+            text: `La cita en ${cita.center} ha sido cancelada.`,
+            confirmButtonColor: '#ff69b4'
+          });
+
+          this.obtenerCitas(); // Recargar citas
+          this.selectedEvent = null; // Cerrar el modal
+        } catch (error) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo cancelar la cita.',
+            confirmButtonColor: '#ff69b4'
+          });
+        }
+      }
+    },
   },
 };
 </script>
