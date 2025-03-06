@@ -26,7 +26,7 @@
     </form>
 
     <div v-if="centroSeleccionado">
-      <p><strong>Centro seleccionado:</strong> {{ centroSeleccionado }}</p>
+      <!-- <p><strong>Centro seleccionado:</strong> {{ centroSeleccionado }}</p> -->
     </div>
 
     <notifications position="top right" />
