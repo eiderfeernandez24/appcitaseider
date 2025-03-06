@@ -131,5 +131,5 @@ export default {
 </script>
 
 <style scoped>
-  @import url(src/assets/styles/ModificarInformacionStyle.scss);
+  @import "../assets/styles/ModificarInformacionStyle.scss";
 </style>

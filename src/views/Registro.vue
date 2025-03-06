@@ -125,5 +125,5 @@ export default {
 </script>
 
 <style scoped>
-  @import url(src/assets/styles/RegistroStyle.scss);
+   @import "../assets/styles/RegistroStyle.scss";
 </style>

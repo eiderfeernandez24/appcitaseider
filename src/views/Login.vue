@@ -75,5 +75,5 @@ if (token) {
 </script>
 
 <style scoped>
-  @import url(src/assets/styles/LoginStyle.scss);
+  @import "../assets/styles/LoginStyle.scss";
 </style>

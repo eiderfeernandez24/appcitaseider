@@ -284,5 +284,5 @@ export default {
 </script>
 
 <style scoped>
- @import url(src/assets/styles/UserPageStyle.scss);
+   @import "../assets/styles/UserPageStyle.scss";
 </style>

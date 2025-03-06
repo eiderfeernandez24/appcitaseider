@@ -141,5 +141,5 @@ export default {
 </script>
 
 <style scoped>
- @import url(src/assets/styles/ReservarCitaStyle.scss);
+   @import "../assets/styles/ReservarCitaStyle.scss";
 </style>

@@ -169,6 +169,6 @@ formatTime(dateString) {
   </script>
   
 <style scoped>
-  @import url(src/assets/styles/VerCitasStyle.scss);
+    @import "../assets/styles/VerCitasStyle.scss";
 </style>
   
