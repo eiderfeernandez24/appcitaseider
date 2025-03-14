@@ -155,8 +155,13 @@ export default {
   },
   methods: {
     formatTime(dateString) {
-      const date = new Date(dateString);
-      return date.toLocaleTimeString({ hour: '2-digit', minute: '2-digit' });
+      if (!dateString) return 'Hora no disponible';
+
+      const partes = dateString.split(" ");
+      if (partes.length !== 2) return 'Hora inválida';
+
+      const hora = partes[1];
+      return hora.substring(0, 5); // Solo HH:mm
     },
     modificarInformacion() {
       this.$router.push('/modificar-informacion');
@@ -191,6 +196,7 @@ export default {
         });
 
         this.citas = respuesta.data;
+        console.log("Citas obtenidas:", this.citas);
         this.actualizarCalendario();
       } catch (error) {
         Swal.fire({
@@ -203,23 +209,44 @@ export default {
     },
     actualizarCalendario() {
       this.calendarOptions.events = this.citas.map((cita) => {
-        const fecha = new Date(cita.date);
         return {
           title: cita.center,
-          start: fecha,
+          start: new Date(cita.date.split(' ')[0].split('/').reverse().join('-') + 'T' + cita.date.split(' ')[1]),
           extendedProps: cita,
         };
-      });
+      }).filter(event => event !== null);
     },
     handleEventClick(info) {
-      this.selectedEvent = info.event.extendedProps;
+      if (info.event.extendedProps && info.event.extendedProps.date) {
+        this.selectedEvent = {
+          ...info.event.extendedProps,
+          date: info.event.extendedProps.date // Pasa la cadena de fecha original
+        };
+      } else {
+        console.error("Evento sin fecha o extendedProps:", info.event);
+        this.selectedEvent = null;
+      }
     },
     closeModal() {
       this.selectedEvent = null;
     },
     formatDate(dateString) {
-      const date = new Date(dateString);
-      return date.toLocaleDateString();
+      if (!dateString) return 'Fecha no disponible';
+
+      // Convertimos la fecha de "DD/MM/YYYY HH:mm:ss" a "YYYY-MM-DD HH:mm:ss"
+      const partes = dateString.split(" ");
+      if (partes.length !== 2) return 'Fecha inválida';
+
+      const [fecha, hora] = partes;
+      const [day, month, year] = fecha.split("/");
+
+      if (!day || !month || !year) return 'Fecha inválida';
+
+      const formattedDate = new Date(`${year}-${month}-${day}T${hora}`);
+
+      if (isNaN(formattedDate.getTime())) return 'Fecha inválida';
+
+      return `${day}/${month}/${year}`;
     },
     async cancelarCitaSeleccionada() {
       const cita = this.selectedEvent;
@@ -267,8 +294,8 @@ export default {
             confirmButtonColor: '#ff69b4'
           });
 
-          this.obtenerCitas(); // Recargar citas
-          this.selectedEvent = null; // Cerrar el modal
+          this.obtenerCitas();
+          this.selectedEvent = null;
         } catch (error) {
           Swal.fire({
             icon: 'error',
